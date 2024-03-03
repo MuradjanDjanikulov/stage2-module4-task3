@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 public class TextComponent extends AbstractTextComponent {
     protected List<AbstractTextComponent> componentList = new ArrayList<>();
-    private int size = 0;
 
     public TextComponent(TextComponentType componentType) {
         super(componentType);
@@ -14,23 +13,25 @@ public class TextComponent extends AbstractTextComponent {
 
     @Override
     public String operation() {
-        return componentList.stream().map(AbstractTextComponent::operation).collect(Collectors.joining(componentType.getDelimiter()));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AbstractTextComponent abstractTextComponent: componentList){
+            stringBuilder.append(abstractTextComponent.operation());
+        }
+        return stringBuilder.toString();
     }
 
     @Override
     public void add(AbstractTextComponent textComponent) {
         componentList.add(textComponent);
-        size += textComponent.getSize();
     }
 
     @Override
     public void remove(AbstractTextComponent textComponent) {
         componentList.remove(textComponent);
-        size -= textComponent.getSize();
     }
 
     @Override
     public int getSize() {
-        return size;
+        return componentList.size();
     }
 }

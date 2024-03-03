@@ -15,14 +15,12 @@ public class ChainParserBuilder {
     }
 
     public AbstractTextParser build() {
-        if (parsers.isEmpty()) {
-            throw new IllegalStateException("No parsers added to the builder");
+        AbstractTextParser abstractTextParser = parsers.get(0);
+        for (int i = 0; i< parsers.size(); i++){
+            if (abstractTextParser!=null){
+                abstractTextParser.setNextParser(parsers.get(i));
+            }
         }
-
-        for (int i = 0; i < parsers.size() - 1; i++) {
-            parsers.get(i).setNextParser(parsers.get(i + 1));
-        }
-
-        return parsers.get(0);
+        return abstractTextParser;
     }
 }

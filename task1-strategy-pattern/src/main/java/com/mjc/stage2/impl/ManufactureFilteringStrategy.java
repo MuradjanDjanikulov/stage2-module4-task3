@@ -10,6 +10,6 @@ public class ManufactureFilteringStrategy implements FilteringStrategy {
     private String manufacture;
     @Override
     public boolean filter(Product product) {
-        return product.getManufacture().equalsIgnoreCase(manufacture);
+        return manufacture.equalsIgnoreCase(product.getManufacture());
     }
 }
